@@ -1,13 +1,22 @@
-//
-//
-import api from '../services/api'
 
-const todo = ({todo,removeTodo,completedTodo }) => {
 
- async function completTodo(id){
-  await api.put(`/todo/${id}`)
-  }
+const todo = ({todo, remove,completed}) => {
 
+ 
+  //const remove = async (id) => {
+    //await api.delete(`/todo/${id}`);
+    
+  //};
+  const handleRemove = () => {
+    remove(todo.id);  // Chama a função remove passando o id do todo
+  };
+
+
+  
+  const isCompleted = ()=>{
+    completed(todo.id)
+    
+}
 
   return (
     <div className="todo" style={{textDecoration: todo.isCompleted ? "line-through" : ""}}>
@@ -16,8 +25,8 @@ const todo = ({todo,removeTodo,completedTodo }) => {
             <p className='category'>({todo.category})</p>
           </div>
           <div>
-            <button className="complete" onClick={()=>completedTodo(todo.id)}>Completar</button>
-            <button className="remove" onClick={()=>removeTodo(todo.id)} >X</button>
+            <button className="complete" onClick={isCompleted} >Completar</button>
+            <button className="remove" onClick={handleRemove} >X</button>
           </div>
         </div>
   )

@@ -10,11 +10,11 @@ function App() {
   
   const [todos, setTodos] = useState([])
 
-const [sapi, setsap] =useState([])
+
 
   async function getTodos(){
     const todoFromApi= await api.get('/todo')
-    setsap(todoFromApi.data)
+    setTodos(todoFromApi.data)
   }
   
 
@@ -37,30 +37,43 @@ const addTodo = (text, category)=>{
   setTodos(newTodos)
   
 }
+const remove = async (id) => {
+  await api.delete(`/todo/${id}`);
+  setTodos(todos.filter(todo => todo.id !== id));
+};
 
-const removeTodo = (id)=>{
-const newTodos = [...todos]
-const filteredTodos = newTodos.filter(todo=> todo.id !== id ? todo : null)
-setTodos(filteredTodos)
-}
+const completed = async (id) => {
+ 
+  
+    await api.put(`/todo/${id}`, { isCompleted: true });
 
-const completedTodo= (id)=>{
-  const  newTodos= [...todos]
- newTodos.map((todo) => todo.id === id ? todo.isCompleted = !todo.isCompleted : todo )
- setTodos(newTodos)
-}
+    
+    setTodos(oldTodos =>
+      oldTodos.map(todo =>
+        todo.id === id ? { ...todo, isCompleted: true } : todo
+      )
+    );
+
+    
+    getTodos();
+
+  
+    
+};
+
+
   return (
     <div className="app">
       <h1>Lista de tarefas</h1>
       <Search search={search} setSearch={setSearch} />
       <Filter filter={filter} setFilter={setFilter} setSort={setSort}/>
       <div className="todo-list">
-        {sapi
+        {todos
         .filter((todo)=> filter === "All" ? true : filter === "Completed" ? todo.isCompleted : !todo.isCompleted)
         .filter((todo)=>todo.text.toLowerCase().includes(search.toLowerCase()))
         .sort((a,b)=> sort=== "Asc" ? a.text.localeCompare(b.text): b.text.localeCompare(a.text))
         .map((todo) => (
-          <Todo key={todo.id} todo={todo} removeTodo={removeTodo} completedTodo={completedTodo} />
+          <Todo key={todo.id} todo={todo} remove={remove} completed={completed} />
         ))}
       </div>
       <TodoForm  addTodo={addTodo} getTodos={getTodos}/>
