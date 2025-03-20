@@ -11,7 +11,7 @@ body{
   max-width: 600px;
   margin: 0 auto;
   background-color: #efefef;
-  padding: 20px 30px;
+  padding: 20px 20px;
   border-radius: 10px;
 }
 
@@ -54,10 +54,15 @@ button:hover{
   border-radius: 5px;
   display: flex;
   justify-content: space-between;
+  gap:3px;
   align-items: center;
+}
+.buttons-todo{
+  width:150px;
 }
 .complete {
   background-color: #5cb85c;
+  margin-left:7px
 }
 .remove{
   background-color: #d9534f;
@@ -65,6 +70,7 @@ button:hover{
 .todo-form{
   padding-bottom: 1.5rem;
 }
+
 input, select{
  padding: 5px;
  margin-bottom: 10px;
@@ -85,4 +91,10 @@ input, select{
 
 .filter-options div{
   flex:1 1 0
+}
+
+.button-filter{
+display:flex;
+flex-directon:collumn;
+margin-bottom:10px
 }

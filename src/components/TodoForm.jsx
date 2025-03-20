@@ -44,7 +44,7 @@ console.log(options);
         <div className='todo-form'>
             <h2>Criar tarefa</h2>
             <form onSubmit={handleSubmit}>
-                <input type="text" placeholder='Digite o título' value={value} ref={inputText} onChange={(e) => setValue(e.target.value)} />
+                <input  type="text" placeholder='Digite o título' value={value} ref={inputText} onChange={(e) => setValue(e.target.value)} />
                 <select ref={inputCategory} value={category} onChange={(e) => setCategory(e.target.value)}>
                     <option value="">Selecione uma categoria</option>
                     <option value="Trabalho" >Trabalho</option>
